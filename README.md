@@ -1,6 +1,6 @@
-# Clean Blog
+# Dopetrope
 
-This is a clean blogging theme adapted from https://github.com/StartBootstrap/startbootstrap-clean-blog, with some additional goodies of its own.
+This is the [HTML5 UP](https://html5up.net/) - Dopetrope theme adapted from https://html5up.net/dopetrope, for usage with the [STATIQ - site generator](https://www.statiq.dev). Many thanks to [AJ](https://twitter.com/ajlkn) from [HTML5 UP](https://html5up.net/) for providing the Dopetrope theme under the [Creative Commons Attribution 3.0 License](https://html5up.net/license/).
 
 ## Minimum Statiq Web Version
 
@@ -13,13 +13,13 @@ Using an earlier commit of the theme may allow the use of an earlier version of 
 Statiq themes go in a `theme` folder alongside your `input` folder. If your site is inside a git repository, you can add the theme as a git submodule:
 
 ```shell
-git submodule add https://github.com/statiqdev/CleanBlog.git theme
+git submodule add https://github.com/suchja/Dopetrope.git theme
 ```
 
 Alternatively, you can clone the theme directly:
 
 ```shell
-git clone https://github.com/statiqdev/CleanBlog.git theme
+git clone https://github.com/suchja/Dopetrope.git theme
 ```
 
 Once inside the `theme` folder, Statiq will automatically recognize the theme.
