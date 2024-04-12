@@ -74,12 +74,12 @@
     @RenderBody()
   </div>
   <!-- Scripts -->
-  <script src="vendor/html5up-dopetrope/js/jquery.min.js"></script>
-  <script src="vendor/html5up-dopetrope/js/jquery.dropotron.min.js"></script>
-  <script src="vendor/html5up-dopetrope/js/browser.min.js"></script>
-  <script src="vendor/html5up-dopetrope/js/breakpoints.min.js"></script>
-  <script src="vendor/html5up-dopetrope/js/util.js"></script>
-  <script src="vendor/html5up-dopetrope/js/main.js"></script>
+  <script src='@Context.GetLink("vendor/html5up-dopetrope/js/jquery.min.js")'></script>
+  <script src='@Context.GetLink("vendor/html5up-dopetrope/js/jquery.dropotron.min.js")'></script>
+  <script src='@Context.GetLink("vendor/html5up-dopetrope/js/browser.min.js")'></script>
+  <script src='@Context.GetLink("vendor/html5up-dopetrope/js/breakpoints.min.js")'></script>
+  <script src='@Context.GetLink("vendor/html5up-dopetrope/js/util.js")'></script>
+  <script src='@Context.GetLink("vendor/html5up-dopetrope/js/main.js")'></script>
   @Html.Partial("_scripts")
   @RenderSection("Scripts", false)
 
