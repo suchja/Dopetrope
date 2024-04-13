@@ -57,11 +57,16 @@
 
 </head>
 
+<!-- TODO: the class here might depend on a variable for site containing 'left-sidebar', 'right-sidebar', 'no-sidebar' or 'homepage' -->
 <body class="homepage is-preload">
   <div id="page-wrapper">
+    <section id="header">
+        <!-- Logo -->
+		<h1><a href='@Context.GetLink("/")'>@Document.GetString("SiteTitle")</a></h1>
 
-    <!-- Navigation -->
-    @RenderSectionOrPartial("Navigation", "_navigation")
+        <!-- Navigation -->
+        @RenderSectionOrPartial("Navigation", "_navigation")
+    </section>
 
     @RenderBody()
   </div>
