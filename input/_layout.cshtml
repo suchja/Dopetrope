@@ -68,8 +68,11 @@
         <!-- Navigation -->
         @RenderSectionOrPartial("Navigation", "_navigation")
 
-        <!-- Banner -->
-        @RenderSectionOrPartial("Banner", "_banner")
+        <!-- Banner (only in homepage) -->
+        @if (@Context.GetLink("/") == Document.GetLink())
+        {
+          @RenderSectionOrPartial("Banner", "_banner")
+        }
         
         <!-- Intro -->
 
