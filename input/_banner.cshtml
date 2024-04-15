@@ -1,6 +1,6 @@
 @{
   string bannerStyle = "";
-  var image = Document.GetString("Banner-image", string.Empty);
+  var image = Document.GetString(WebKeys.Image, string.Empty);
   if (!string.IsNullOrEmpty(image))
   {
     bannerStyle = $"background: url(\"{Context.GetLink(image)}\")";
