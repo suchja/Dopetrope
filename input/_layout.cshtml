@@ -61,11 +61,18 @@
 <body class="homepage is-preload">
   <div id="page-wrapper">
     <section id="header">
+
         <!-- Logo -->
 		<h1><a href='@Context.GetLink("/")'>@Document.GetString("SiteTitle")</a></h1>
 
         <!-- Navigation -->
         @RenderSectionOrPartial("Navigation", "_navigation")
+
+        <!-- Banner -->
+        @RenderSectionOrPartial("Banner", "_banner")
+        
+        <!-- Intro -->
+
     </section>
 
     @RenderBody()

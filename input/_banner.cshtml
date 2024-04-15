@@ -1,0 +1,14 @@
+@{
+  string bannerStyle = "";
+  var image = Document.GetString("Banner-image", string.Empty);
+  if (!string.IsNullOrEmpty(image))
+  {
+    bannerStyle = $"background: url(\"{Context.GetLink(image)}\")";
+  }
+}
+<section id="banner" style="@bannerStyle">
+    <header>
+        <h2>Howdy. This is Dopetrope.</h2>
+        <p>A responsive template by HTML5 UP</p>
+    </header>
+</section>
