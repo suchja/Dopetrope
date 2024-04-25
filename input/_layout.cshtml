@@ -69,15 +69,43 @@
       @RenderSectionOrPartial("Navigation", "_navigation")
 
       <!-- Some parts are only visible on homepage -->
-      @if (@Context.GetLink("/") == Document.GetLink())
+      @if (@Context.GetLink("/") == @Document.GetLink())
       {
         @RenderSectionOrPartial("Banner", "_banner")
         @RenderSectionOrPartial("Intro", "_index-intro")
       }
+    </section>
+    <!-- Main -->
+    <section id="main">
+      <div class="container">
 
+        <!-- Content -->
+          <article class="box post">
+            @{
+              var image = Document.GetString(WebKeys.Image, string.Empty);
+              string description = Document.WithoutSettings().GetString("Lead") ??
+              Document.WithoutSettings().GetString(WebKeys.Description);
+              string title = Document.GetString("Title") ?? Document.GetString("SiteTitle");
+
+              <!-- Show image, if one is defined in document -->
+              if (!string.IsNullOrEmpty(image))
+              {
+                <a class="image featured"><img src="@image" alt="" /></a>
+              }
+            }
+
+            <header>
+              <h2>@title</h2>
+              @if (!string.IsNullOrEmpty(description))
+              {
+                <p>@description</p>
+              }
+            </header>
+            @RenderBody()
+          </article>
+      </div>
     </section>
 
-    @RenderBody()
   </div>
   <!-- Scripts -->
   <script src='@Context.GetLink("vendor/html5up-dopetrope/js/jquery.min.js")'></script>
