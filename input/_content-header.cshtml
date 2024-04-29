@@ -1,0 +1,21 @@
+@{
+    var image = Document.GetString(WebKeys.Image, string.Empty);
+    string description = Document.WithoutSettings().GetString("Lead") ??
+    Document.WithoutSettings().GetString(WebKeys.Description);
+    string title = Document.GetString("Title") ?? Document.GetString("SiteTitle");
+
+    <!-- Show image, if one is defined in document -->
+    if (!string.IsNullOrEmpty(image))
+    {
+        <a class="image featured"><img src="@image" alt="" /></a>
+    }
+}
+
+<header>
+    <h2>@title</h2>
+
+    @if (!string.IsNullOrEmpty(description))
+    {
+        <p>@description</p>
+    }
+</header>

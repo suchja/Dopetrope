@@ -86,29 +86,24 @@
       <div class="container">
 
         <!-- Content -->
+        @if (isPost)
+        {
           <article class="box post">
-            @{
-              var image = Document.GetString(WebKeys.Image, string.Empty);
-              string description = Document.WithoutSettings().GetString("Lead") ??
-              Document.WithoutSettings().GetString(WebKeys.Description);
-              string title = Document.GetString("Title") ?? Document.GetString("SiteTitle");
-
-              <!-- Show image, if one is defined in document -->
-              if (!string.IsNullOrEmpty(image))
-              {
-                <a class="image featured"><img src="@image" alt="" /></a>
-              }
-            }
-
-            <header>
-              <h2>@title</h2>
-              @if (!string.IsNullOrEmpty(description))
-              {
-                <p>@description</p>
-              }
-            </header>
+            @await Html.PartialAsync("_content-header")
             @RenderBody()
           </article>
+        }
+        else if (isPage && (@Context.GetLink("/") != @Document.GetLink()))
+        {
+          <article class="box post">
+            @await Html.PartialAsync("_content-header")
+            @RenderBody()
+          </article>
+        }
+        else
+        {
+          @RenderBody()
+        }
       </div>
     </section>
 
@@ -120,7 +115,7 @@
   <script src='@Context.GetLink("vendor/html5up-dopetrope/js/breakpoints.min.js")'></script>
   <script src='@Context.GetLink("vendor/html5up-dopetrope/js/util.js")'></script>
   <script src='@Context.GetLink("vendor/html5up-dopetrope/js/main.js")'></script>
-  @Html.Partial("_scripts")
+  @await Html.PartialAsync("_scripts")
   @RenderSection("Scripts", false)
 
 </body>
