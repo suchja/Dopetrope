@@ -3,7 +3,7 @@
   var image = Document.GetString(WebKeys.Image, string.Empty);
   if (!string.IsNullOrEmpty(image))
   {
-    bannerStyle = $"background: url(\"{Context.GetLink(image)}\")";
+    bannerStyle = $"background-image: url(\"{Context.GetLink(image)}\")";
   }
 }
 <section id="banner" style="@bannerStyle">
