@@ -1,4 +1,6 @@
-@foreach(IDocument doc in Context.OutputPages.Where(x => x.GetBool("ShowInNavbar", x.GetBool("IsPage"))).OrderBy(x => x.GetInt(Keys.Order)))
+@foreach(IDocument doc in Context.OutputPages
+  .Where(x => x.GetBool("ShowInNavbar", x.GetBool("IsPage")))
+  .OrderBy(x => x.GetInt(Keys.Order)))
 {
   bool isCurrentPage = doc.GetLink(true) == Document.GetLink(true);
   // Pages get added to the navigation bar by default,
