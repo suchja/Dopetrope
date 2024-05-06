@@ -1,8 +1,9 @@
 @{
-    var twoMostRecentPosts = Outputs
+    var mostRecentPosts = Outputs
     .FilterSources("posts/*")
     .OrderByDescending(x => x.GetDateTime("Published"))
-    .Take(2).ToArray();
+    .Take(2)
+    .ToArray();
 }
 
 <!-- Blog -->
@@ -11,7 +12,7 @@
         <h2>The Blog</h2>
     </header>
     <div class="row">
-        @foreach (var blogPost in twoMostRecentPosts){
+        @foreach (var blogPost in mostRecentPosts){
             @await Html.PartialAsync("_post-overview", blogPost)
         }
     </div>
