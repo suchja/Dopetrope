@@ -7,13 +7,16 @@
 }
 
 <!-- Blog -->
-<section>
-    <header class="major">
-        <h2>The Blog</h2>
-    </header>
-    <div class="row">
-        @foreach (var blogPost in mostRecentPosts){
-            @await Html.PartialAsync("_post-overview", blogPost)
-        }
-    </div>
-</section>
+@if (mostRecentPosts.Length > 0)
+{
+    <section>
+        <header class="major">
+            <h2>The Blog</h2>
+        </header>
+        <div class="row">
+            @foreach (var blogPost in mostRecentPosts){
+                @await Html.PartialAsync("_post-overview", blogPost)
+            }
+        </div>
+    </section>
+}
