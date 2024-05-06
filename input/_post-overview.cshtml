@@ -3,8 +3,7 @@
 @{
   string excerpt = Model.GetString(Keys.Excerpt);
   string lead = Model.GetString("Lead");
-  string image = Document.GetString(WebKeys.Image, string.Empty);
-  Console.WriteLine($"image: {image}");
+  string image = Model.GetString(WebKeys.Image);
 }
 
 <div class="col-6 col-12-small">
