@@ -1,0 +1,33 @@
+@model IDocument
+
+@{
+  string excerpt = Model.GetString(Keys.Excerpt);
+  string lead = Model.GetString("Lead");
+  string image = Document.GetString(WebKeys.Image);
+}
+
+<div class="col-6 col-12-small">
+    <section class="box">
+        @if (!string.IsNullOrEmpty(image))
+        {
+            <a href="@Context.GetLink(Model)" class="image featured"><img src="@Context.GetLink(image)" alt="" /></a>
+        }
+        <header>
+            <h3>@Html.DocumentLink(Model)</h3>
+            <p>Published on @Model.GetDateTime(WebKeys.Published).ToLongDateString(Context)</p>
+        </header>
+        @if (!string.IsNullOrEmpty(excerpt))
+        {
+            <p>@excerpt</p>
+        }
+        else if (!string.IsNullOrEmpty(lead))
+        {
+            <p>@lead</p>
+        }
+        <footer>
+            <ul class="actions">
+                <li><a href="@Context.GetLink(Model)" class="button icon solid fa-file-alt">Continue Reading</a></li>
+            </ul>
+        </footer>
+    </section>
+</div>
