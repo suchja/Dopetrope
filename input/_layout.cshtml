@@ -60,6 +60,10 @@
   <script src="https://cdn.jsdelivr.net/npm/quicklink@2.3.0/dist/quicklink.umd.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-vs.min.css" rel="stylesheet">
 
+  @await Html.PartialAsync("_head")
+
+  @RenderSection("Head", false)
+
 </head>
 
 <!-- TODO: the class here might depend on a variable for site containing 'left-sidebar', 'right-sidebar', 'no-sidebar' or 'homepage' -->
