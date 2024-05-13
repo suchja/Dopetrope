@@ -1,0 +1,16 @@
+    <!-- TODO: Use header tag instead, but fix css before! (see #19) -->
+    <section id="header">
+
+      <!-- Logo -->
+  		<h1><a href='@Context.GetLink("/")'>@Document.GetString("SiteTitle")</a></h1>
+
+      <!-- Navigation -->
+      @await Html.PartialAsync("_navigation")
+
+      <!-- Some parts are only visible on homepage -->
+      @if (@Context.GetLink("/") == @Document.GetLink())
+      {
+        @await Html.PartialAsync("_banner")
+        @await Html.PartialAsync("_intro")
+      }
+    </section>
