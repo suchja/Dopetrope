@@ -6,20 +6,18 @@ This is the [HTML5 UP](https://html5up.net/) - Dopetrope theme adapted from http
 
 This theme requires Statiq Web 1.0.0-beta.36 or later.
 
-Using an earlier commit of the theme may allow the use of an earlier version of Statiq Web (look at the theme `settings.yml` file to determine the minimum Statiq Web version for a given version of the theme).
-
 ## Installation
 
 Statiq themes go in a `theme` folder alongside your `input` folder. If your site is inside a git repository, you can add the theme as a git submodule:
 
 ```shell
-git submodule add https://github.com/suchja/Dopetrope.git theme
+git submodule add https://github.com/suchja/statiq-dopetrope-theme.git theme
 ```
 
 Alternatively, you can clone the theme directly:
 
 ```shell
-git clone https://github.com/suchja/Dopetrope.git theme
+git clone https://github.com/suchja/statiq-dopetrope-theme.git theme
 ```
 
 Once inside the `theme` folder, Statiq will automatically recognize the theme.
@@ -32,17 +30,21 @@ You can add contents to your site using plain HTML and CSS, as well as any of th
 
 ### Home Page
 
-By default, your blog's home page will be an [archive](https://statiq.dev/web/content-and-data/archives), showing the latest blog posts in inverse chronological order.
+The theme comes **without** an initial home page. However, to see a similar home page as show cased by [Statiq Dopetrope Demo](https://github.com/suchja/statiq-dopetrope-demo), add a `index.cshtml` to your `input` folder (but **not** the `input` folder inside the `theme` folder) with the following content:
 
-Note that Statiq.Web does not generate archive pages if it finds no contents for them to index. In other words, **the theme will have no home page until you add a blog post**.
+```html
+@await Html.PartialAsync("_index-main")
+```
+
+This will be processed by [STATIQ - site generator](https://www.statiq.dev) as a single static page. That means:
+1. It will apply the complete site layout (as defined in `theme/input/_layout.cshtml`)
+2. Once it comes 
 
 You can provide your own home page by adding an `index.cshtml` (or `index.md`) file in your `input` folder. Unless your custom home page is an archive too, it will be displayed regardless of the presence of any post.
 
 #### Sidebar
 
-On the right side of the list of posts, the default home page sports a vertical bar listing the ten most used tags. Clicking on any tag brings the user to the list of posts that have that tag, similarly to what happens of the "Tags" page.
-
-All remaining space in the sidebar is yours! Just add a `_sidebar.cshtml` file in your `input` folder; it will be trated as a [Razor partial](https://www.statiq.dev/guide/content-and-data/template-languages/razor) and inserted just below the list of most used tags.
+==TODO:== See [this issue](https://github.com/suchja/statiq-dopetrope-theme/issues/13)
 
 ### Blog Posts
 
@@ -69,7 +71,7 @@ If you don't specify a `Published` date, Statiq will use the last modification d
 
 #### Tags
 
-You may specify as many tags as you like, or even none. Of course, posts with no tags will not appear in the Tags archive.
+==TODO:== see [this issue](https://github.com/suchja/statiq-dopetrope-theme/issues/14)
 
 ### Static pages
 
@@ -192,6 +194,8 @@ You can interface to a comment engine of your choice without modifying this them
 
 #### Giscus
 
+==TODO:== See [this issue](https://github.com/suchja/statiq-dopetrope-theme/issues/15)
+
 [`giscus`](https://giscus/app) uses GitHub Discussions as comment storage.
 
 The following settings must be set in your `settings.yml` file when `CommentEngine` is set to `giscus`:
@@ -254,48 +258,3 @@ You will find the definitions of overridable Sass variables in the following fil
 - the whole `input/vendor/startbootstrap-clean-blog/scss/variables` directory (to customize the Clean Blog theme);
 - `input/scss/_variables.scss` (to customize this variation of CleanBlog - masthead gradient color is here).
 
-## Porting From Wyam
-
-This blogging theme is roughly compatible with the Wyam CleanBlog theme. Some notes if you're porting:
-
-- You will need to [create a Statiq Web app](https://statiq.dev/web/) at the root of your site (you can keep the `input` directory).
-  - Run `dotnet new console` at the root of your site.
-  - Run `dotnet add package Statiq.Web --version x.y.z` (using the [latest Statiq Web version](https://www.nuget.org/packages/Statiq.Web)).
-  - Change the generated `Program` class in `Program.cs` to:
-
-```
-using System;
-using System.Threading.Tasks;
-using Statiq.App;
-using Statiq.Web;
-
-namespace ...
-{
-  public class Program
-  {
-    public static async Task<int> Main(string[] args) =>
-      await Bootstrapper
-        .Factory
-        .CreateWeb(args)
-        .RunAsync();
-  }
-}
-```
-
-- Follow the [installation instructions above](#installation) to install the theme into your site.
-
-- Create a `settings.yml` file at the root of your site and copy over settings from your `config.wyam` file
-  - Since the new settings file is YAML you don't need to prefix strings or anything, for example `Settings[Keys.Host] = "daveaglick.com";` becomes `Host: daveaglick.com`.
-  - If you defined a global "Title" setting in `config.wyam` the new theme should set "SiteTitle" instead (and if not, a "SiteTitle" should be defined).
-  - If you defined an "Intro" setting, that should be placed in a new `_index.yml` file in your `input` directory with a key of "Description".
-
-- If you created an `input/assets/css/override.css` file, move it to `input/scss/_overrides.scss` (and you can now use Sass inside the CSS overrides file).
-
-- Replace any uses of `img-response` CSS class with `img-fluid` since this theme uses a newer version of Bootstrap and that CSS class changed.
-
-- Rename and fix up any override theme files or partials according to the supported ones documented above.
-  - For example, the old Wyam CleanBlog supported a `_PostFooter.cshtml` which should be renamed to `_post-footer.cshtml`.
-  - The CSS may not match exactly since the new CleanBlog theme is based on the most recent CleanBlog project so you may need to take a look at the default partial implementations in this theme and adjust your override files accordingly.
-
-- You can likely remove any build scripting and bootstrapping code since you can now run `dotnet run -- preview` to preview the site.
-  - You can also now setup [built-in deployment](https://statiq.dev/web/deployment/).
