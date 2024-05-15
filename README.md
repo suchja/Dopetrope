@@ -38,13 +38,14 @@ The theme comes **without** an initial home page. However, to see a similar home
 
 This will be processed by [STATIQ - site generator](https://www.statiq.dev) as a single static page. That means:
 1. It will apply the complete site layout (as defined in `theme/input/_layout.cshtml`)
-2. Once it comes 
+2. Once it comes to calls like `@RenderSectionOrPartial` or `HTML.Partial...` in the `_layout.cshtml`, the specified partials will be applied.
+3. Finally it will arrive at a `RenderBody` call in the `_layout.cshtml`. This is when the content of "your" `index.cshtml` will be used. In this example (`@await Html.PartialAsync("_index-main")`) you simply say that the content within `_index-main.cshtml` shall be used.
 
-You can provide your own home page by adding an `index.cshtml` (or `index.md`) file in your `input` folder. Unless your custom home page is an archive too, it will be displayed regardless of the presence of any post.
+You can and probably will provide your own home page. The `_index-main.cshtml` is simply meant as starting point. More Details can be found in the chapters [Customization](#customization) and [Settings](#settings).
 
 #### Sidebar
 
-==TODO:== See [this issue](https://github.com/suchja/statiq-dopetrope-theme/issues/13)
+***TODO:*** See [this issue](https://github.com/suchja/statiq-dopetrope-theme/issues/13)
 
 ### Blog Posts
 
@@ -65,17 +66,19 @@ The `---` line separates the _front matter_, i.e. YAML code containing page-spec
 
 As for the `.md` extension, it means that the article body is written with Markdown syntax. And yes, there's [a quick guide](https://learnxinyminutes.com/docs/markdown/) for it, too. See also [here](https://www.statiq.dev/guide/content-and-data/template-languages/markdown) for Markdown features specific to Statiq.Web.
 
+The meaning of the different *front matter* variables used in the example post above, is described in the [settings chapter](#page).
+
 #### Published Date
 
 If you don't specify a `Published` date, Statiq will use the last modification date of the file. Since Git does not save and restore file times, you should always specify a `Published` date if you store your blog in a Git repository; otherwise, all your posts will appear to have been published at the date of checkout.
 
 #### Tags
 
-==TODO:== see [this issue](https://github.com/suchja/statiq-dopetrope-theme/issues/14)
+***TODO:*** see [this issue](https://github.com/suchja/statiq-dopetrope-theme/issues/14)
 
 ### Static pages
 
-Static pages are different from blog posts, in that they have no taxonomy (published date, tags) and thus do not appear in archives. Their usual purpose is to provide information on a site-wide basis, for example an author's bio, portfolio, and/or resume; a privacy policy; a contact form; etc.
+Static pages purpose is to provide information on a site-wide basis, for example an author's bio, portfolio, and/or resume; a privacy policy; a contact form; etc.
 
 Add your static pages to a `pages` folder under your own `input` folder. An example page might be named `input/pages/about.md` and contain the following content:
 
@@ -89,6 +92,8 @@ Hi there, I'm James and this is my blog.
 
 Short bio; why I opened a blog; miscellaneous yada yada.
 ```
+
+The meaning of the different *front matter* variables used in the example page above, is described in the [settings chapter](#page).
 
 ## Customization
 
@@ -122,13 +127,17 @@ DateTimeDisplayCulture: en-US # This determines the format for displayed dates, 
 GenerateSearchIndex: true # Setting this to false disables both the search box in navigation bar and the search page
 ```
 
+> [!WARNING]
+> The original theme did not provide any visuals for a search functionality. This is currently under development (see [this issue](https://github.com/suchja/statiq-dopetrope-theme/issues/16)). Therefore the `GenerateSearchIndex` setting does not have any impact.
+
 ### The Navigation Bar
 
 The navigation bar is a series of links that appears at the top of every page of your blog on desktop browsers, or can be displayed by touching a "Menu" button in the top right corner on mobile browsers.
 
 The navigation bar includes: links to all static pages (by default, see below), a "Posts" link to a historical archive of posts, and a "Tags" link to an index of all tags.
 
-A search box is also included at the end of the navigation bar if search index generation is enabled.
+> [!Important]
+> The themes navigation shows which site is currently active. This might be confusing, if the homepage is **not** included in the navigation. Although the `SiteTitle` allows to go back to the homepage as well, you might want to add your homepage to navigation as well. See the [following section](#links-to-static-pages) for settings you need to add to your `index.cshtml` file to get hits working.
 
 #### Links To Static Pages
 
@@ -137,6 +146,14 @@ If you don't want a page to be linked in the navigation bar, add a `ShowInNavbar
 If you don't specify a value for `NavbarTitle` in a page, `Title` will be used as the link text.
 
 Links are sorted by the value of their `Order` setting. Pages with `Order` greater than or equal to 100 will appear after "Posts" and "Tags".
+
+### Banner & Intro elements
+
+The standard homepage shows an image (or color if no image is present) with a centered box containing a headline and some text. This is called *banner*. The *banner* is located immdiately below the [Navigation Bar](#the-navigation-bar).
+
+Below the *banner* is a section called *intro*. This currently shows 3 Icons with some text. Here you could for example show the characteristics of your business, site, ...
+
+There are several *front matter* variables you can use to add your content to the *banner*. Those are described in [settings](#page).
 
 ### Destination Paths
 
@@ -178,9 +195,15 @@ These can be set in front matter, a sidecar file, etc. (in addition to any of St
 - `ShowInNavbar`: Set to `false` to hide a static page in the top navigation bar.
 - `IsPost`: Set to `false` to exclude the file from the set of posts. This will also disable post styling like displaying tags in the header.
 - `IsPage`: Set to `false` to exclude the file from the set of static pages. This will also disable navigation bar linking.
+- `Banner-heading`: The text that should be shown as heading in the banner box
+- `Banner-description`: The text that should be shown below the heading in the banner box
+
+> [!Note]
+> Currently there is no support for a *modified* date of a page or post. This is under development (see [this issue](https://github.com/suchja/statiq-dopetrope-theme/issues/18)).
 
 ### Post comments
 
+***TODO:*** See [this issue](https://github.com/suchja/statiq-dopetrope-theme/issues/15)
 These can be set in a settings file (in addition to any of Statiq's [settings](https://statiq.dev/guide/configuration/settings) and [web settings](https://statiq.dev/guide/configuration/web-settings)).
 
 - `CommentEngine`: The comment engine to use for posts (empty string or "none" to _not_ display comments).
@@ -194,7 +217,7 @@ You can interface to a comment engine of your choice without modifying this them
 
 #### Giscus
 
-==TODO:== See [this issue](https://github.com/suchja/statiq-dopetrope-theme/issues/15)
+***TODO:*** See [this issue](https://github.com/suchja/statiq-dopetrope-theme/issues/15)
 
 [`giscus`](https://giscus/app) uses GitHub Discussions as comment storage.
 
@@ -221,40 +244,51 @@ Replace or copy any of these Razor partials in your `input` folder to override s
 - `/_head.cshtml`: Additional content for the `<head>` tag.
 - `/_navigation.cshtml`: The navigation bar at the top every page.
 - `/_navbar.cshtml`: The items of the navigation bar at the top of the page.
-- `/_header.cshtml`: The header section of the page.
-- `/_posts.cshtml`: Displays a set of posts stored in the children of a document passed as the partial model data.
-- `/_post.cshtml`: Displays an individual post inside a list of posts.
-- `/_post-after-content.cshtml`: Displays content at the bottom of a post, before comments.
-- `/_page-after-content.cshtml`: Displays content at the bottom of a static page.
-- `/_common-after-content.cshtml`: Displays content at the bottom of _any_ page. Included just after `/_post-after-content.cshtml` / `/_page-after-content.cshtml`.
-- `/_copyright.cshtml`: Displays a copyright attribution for the blog. By default, contains a paragraph with the `Copyright` setting.
-- `/_post-comments.cshtml`: Displays comments for a post.
-- `/_post-comments-{engine}.cshtml`: Displays the contents of the "comments" section of a post when the `CommentEngine` setting is equal, case-insensitively, to `{engine}`.
-- `/_sidebar.cshtml`: Additional content for the sidebar on the main index page (ignored if you provide your own index page).
-- `/_footer.cshtml`: The footer at the bottom of all pages.
+- `/_header.cshtml`: The header section of the page. Replace this for a complete new header. This currently includes `/_navigation` on all pages. Additionally it calls `/_banner.cshtml` as well as `/_intro.cshtml`, if used for the homepage.
+- `/_banner.cshtml`: The image with the box containing a heading and short description. Located immediately after the navigation. To modify the text of heading and description, simply use the variables as defined in [settings](#page).
+- `/_intro.cshtml`: The section immediately below the *banner* (**only** visible on homepage!). This one you should replace with your own content or provide an empty file with this name to skip the *intro*.
+- `/_index-main`: The main content of the homepage. This includes `/_index-portfolio.cshtml` as well as `/_index-blog.cshtml`. If the default homepage of the theme suits your needs, you might want to leave this as it is and change the either `/_index-portfolio.cshtml` and/or `/_index-blog.cshtml`. Otherwise you could also ignore this file completely and directly include `/_index-portfolio.cshtml` and/or `/_index-blog.cshtml` from your `/index.cshtml`, if that is what you fancy!
+- `/_index-portfolio.cshtml`: The portfolio like section after the *intro* (**only** visible on homepage by default!). Currently you require a local copy of this file in your website to modify its content. As described in [this issue](https://github.com/suchja/statiq-dopetrope-theme/issues/20), there might be an easier "configuration" of the portfolio in the future.
+- `/_index-blog.cshtml`: The section showing the two most recent blog posts (**only** visible on homepage by default!). As described in [this issue](https://github.com/suchja/statiq-dopetrope-theme/issues/2) the amount of posts shown is currently not configurable. This uses the `/_post-overview.cshtml` to visualise an overview of each post.
+- `/_post-overview.cshtml`: A card like presentation with important information about a single post.
+- `/_content-header.cshtml`: This relates to content in the body of a page or post. Replacing this you can change how pages or posts show their image, heading and description.
+- `/_footer.cshtml`: The footer at the bottom of all pages. This file provides the basic layout with its rows and columns. The Content as well layout can be configured in the other footer related files (e.g. `/_footer-about.cshtml`).
+- `/_footer-about.cshtml`: This shows a small about section in the footer. This fits into the overall footer layout as defined in `/_footer.cshtml`.
+- `/_footer-contact.cshtml`: This shows a section with social media links and address in the footer. This fits into the overall footer layout as defined in `/_footer.cshtml`.
+- `/_footer-copyright-credits.cshtml`: Displays a copyright attribution and credits for the blog. By default, this is shown as last entry in the footer.
+- `/_footer-dates.cshtml`: This shows the dates section in the footer. This fits into the overall footer layout as defined in `/_footer.cshtml`. Based on [this issue](https://github.com/suchja/statiq-dopetrope-theme/issues/3) it is planned to handle these dates more easily for the user.
+- `/_footer-first-link-section.cshtml`: This shows a list of links in the footer. This fits into the overall footer layout as defined in `/_footer.cshtml`.
+- `/_footer-second-link-section.cshtml`: This shows another list of links in the footer. This fits into the overall footer layout as defined in `/_footer.cshtml`.
 - `/_scripts.cshtml`: Additional scripts or other content at the bottom of the page.
+
+### Homepage - modifying the default homepage
+
+As detailed in the previous list about all [partials](#partials), there are a few parts on the homepage, that sets it apart from other pages and posts:
+- *Banner*
+- *Intro*
+- *Portfolio*
+- *Blog-Overview*
+
+The theme provides partials for each of these parts. That means you can change the content of each of these parts by adding the related file to your `input` folder. You can copy the file from the theme's `input` folder to start with. Now you can change the content as you fancy. In case you like to completely skip a part, simply add its file to your `input` **without** any content.
 
 ## Sections
 
 In addition to globally changing sections of the site using the partials above you can also add the following Razor sections to any given page to override them for that page (which will typically disable the use of the corresponding partial):
 
 - `Head`: Additional content for the `<head>` tag (this section is additive with the content in the `_head.cshtml` partial).
-- `Navigation`: The navigation at the top of the layout.
-- `Header`: The header section of the page.
-- `Footer`: The footer section of the page.
+- `Header`: The header section of the page (see [partials](#partials) for what is replaced by this section.).
+- `Footer`: The footer section of the page (see [partials](#partials) for what is replaced by this section.).
 - `Scripts`: Additional scripts or other content at the bottom of the page (this section is additive with the content in the `_scripts.cshtml` partial).
 
 ## Styles
 
 There are three distinct extensibility points for styles:
 
-- to override Bootstrap variables, for instance [customize Bootstrap options](https://getbootstrap.com/docs/5.2/customize/options/), create an input file at `scss/_bootstrap-variable-overrides.scss` and add your variables there;
-- to override theme variables, for example to change the main color for the masthead gradient, create an input file at `scss/_variable-overrides.scss` and add your variables there;
+- to override the style of a post (content within `<article>` tag styled by `box.post`), create an input file at `scss/_box-post-overrides.cshtml` and add the proper styling;
+- to override theme variables, for example to change the primary color or the banner, create an input file at `scss/_variable-overrides.scss` and add your variables there;
 - to override any styles, create an input file at `scss/_overrides.scss` and add your styles there.
 
 You will find the definitions of overridable Sass variables in the following files:
 
-- `input/vendor/bootstrap/scss/_variables.scss` (Bootstrap variables and options);
-- the whole `input/vendor/startbootstrap-clean-blog/scss/variables` directory (to customize the Clean Blog theme);
-- `input/scss/_variables.scss` (to customize this variation of CleanBlog - masthead gradient color is here).
+- `input/scss/_variables.scss` (to customize this variation of the theme - primary color as well as banner styling is here).
 
