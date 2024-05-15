@@ -137,7 +137,7 @@ The navigation bar is a series of links that appears at the top of every page of
 The navigation bar includes: links to all static pages (by default, see below), a "Posts" link to a historical archive of posts, and a "Tags" link to an index of all tags.
 
 > [!Important]
-> The themes navigation shows which site is currently active. This might be confusing, if the homepage is **not** included in the navigation. Although the `SiteTitle` allows to go back to the homepage as well, you might want to add your homepage to navigation as well. See the [following section](#links-to-static-pages) for settings you need to add to your `index.cshtml` file to get hits working.
+> The themes navigation shows which site is currently active. This might be confusing, if the homepage is **not** included in the navigation. Although the `SiteTitle` allows to go back to the homepage as well, you might want to add your homepage to navigation as well. See the [following section](#links-to-static-pages) for settings you need to add to your `index.cshtml` file to get this working.
 
 #### Links To Static Pages
 
