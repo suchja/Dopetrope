@@ -69,8 +69,8 @@
 <!-- TODO: the class here might depend on a variable for site containing 'left-sidebar', 'right-sidebar', 'no-sidebar' or 'homepage' -->
 <body class="homepage is-preload">
   <div id="page-wrapper">
-    @await Html.PartialAsync("_header")
-    
+    @RenderSectionOrPartial("Header", "_header")
+
     <!-- Main -->
     <section id="main">
       <div class="container">
@@ -97,7 +97,7 @@
       </div>
     </section>
     <!-- Footer -->
-    @await Html.PartialAsync("_footer")
+    @RenderSectionOrPartial("Footer", "_footer")
   </div>
   <!-- Scripts -->
   <script src='@Context.GetLink("vendor/html5up-dopetrope/js/jquery.min.js")'></script>
